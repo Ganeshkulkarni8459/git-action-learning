@@ -25,6 +25,8 @@ jobs:
     steps:
       - name: Print Java Version
         run: echo $jdk_version
+      - name: Print Maven Version
+        run: echo $MAVEN_VERSION
         
         
           
