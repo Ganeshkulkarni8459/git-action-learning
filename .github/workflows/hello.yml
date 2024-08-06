@@ -15,8 +15,14 @@ jobs:
         run: |
           apk add --no-cache $jdk_version
           java --version
-      - name: Print Env Variable
-        run:  $jdk_version
+  print-env:
+     runs-on: ubuntu-latest
+
+     steps:
+       - name: Print Java Version
+         run: echo $jdk_version
+        
+        
           
 
       
