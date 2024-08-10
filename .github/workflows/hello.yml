@@ -1,36 +1,29 @@
-name: Learn basic of GitHub Action
+name: CI/CD Workflow
+
 on:
   push:
     branches:
-      -  main
-env: 
-  jdk_version: "openjdk11-jdk"
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
-  install-java:
+  pre-commit-scan:
     runs-on: ubuntu-latest
-    container:
-      image: alpine:latest
-    steps:
-      - name: install java
-        run: |
-          apk add --no-cache $jdk_version
-          java --version
-          echo "MAVEN_VERSION=1234" >> $GITHUB_ENV
-      - name: print Maven Version
-        run: echo $MAVEN_VERSION
-        
-  print-env:
-    runs-on: ubuntu-latest
-    needs: install-java
 
     steps:
-      - name: Print Java Version
-        run: echo $jdk_version
-      - name: Print Maven Version
-        run: echo $MAVEN_VERSION  
+      - name: Checkout code
+        uses: actions/checkout@v3
         
-        
-          
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
 
-      
-     
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Check setup
+        run: java --version
